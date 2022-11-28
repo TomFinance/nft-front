@@ -22,6 +22,10 @@ import axios from "axios";
 import {proxy, useSnapshot} from "valtio";
 import DemoState from "../../stores/DemoState";
 import AppState from "../../AppState";
+import {Modal} from "../../components/Modal";
+import {HeaderModal} from "../../components/HeaderModal";
+import apiClient from "../../apiClient";
+
 
 /*function useUserProfile() {
   return useQuery(["getUserProfile"], async () => {
@@ -37,7 +41,11 @@ import AppState from "../../AppState";
 
 
 const UserProfile = () => {
-  const state = proxy(AppState);
+  const state = proxy(AppState)
+  const snap = useSnapshot(state);
+  // console.log(`UserProfile = ${JSON.stringify(state)}`);
+  // const snap = useSnapshot(state)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // const { status, data: userProfileData, error, isFetching } = useUserProfile();
   // console.log(`UserProfile data = ${JSON.stringify(userProfileData)}`);
@@ -50,26 +58,13 @@ const UserProfile = () => {
 */
   useEffect(() => {
     (async () => {
-      const accessToken = localStorage.getItem(`accessToken`);
-      const { data } = await axios.get(
-          "https://api.skyhall.io/api/v1/user/profile", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          }
-      );
-      if(data.result === 'ok') {
+      const {data} = await apiClient('/user/profile');
+      //alert(JSON.stringify(data));
+      const {statusCode} = data;
+      if(data && data.result === 'ok') {
         state.profile = data.profile;
-        //console.log(`state.profile = ${JSON.stringify(state.profile)}`);
+        console.log(`state.profile = ${JSON.stringify(state.profile)}`);
       }
-/*      const {username, address, profileFilePath, email, bio, links} = data.profile;
-      const {twitter, instagram, homepage} = links
-      setUsername(username);
-      setAddress(address);
-      setProfileFilePath("https://resource.skyhall.io/assets/" + profileFilePath);
-      setEmail(email);
-      setBio(bio);
-      setTwitter(twitter);
-      setInstagram(instagram);
-      setHomepage(homepage);*/
     })();
   }, []);
 
@@ -82,15 +77,34 @@ const UserProfile = () => {
         <img src={banner} className='h-[18.75rem] object-cover' alt='banner' />
       </div>
 
+
+      {modalIsOpen && (
+          <Modal
+              onClick={async () => {
+                //await openMetamask();
+                //setModalIsOpen(false);
+              }}
+              styledWrapper='modal-dialog max-w-lg'
+              setModalIsOpen={setModalIsOpen}
+              title='Connect your wallet'
+              btnTitle='Get Metamask'
+              childrenBody={<HeaderModal />}
+          />
+      )}
+
       <section className='relative bg-light-base pb-12 pt-28 dark:bg-jacarta-800'>
         <div className='absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center'>
           <figure className='relative'>
-            <img
-              src={"https://resource.skyhall.io/assets/" + state.profile.profileFilePath}
-              alt='collection avatar'
-              className='rounded-xl border-[5px] border-white dark:border-jacarta-600'
-              width="160" height="160"
-            />
+            {
+              snap.profile && state.profile.profileFilePath ? <img
+                      src={state.profile && ("https://resource.skyhall.io/assets/" + state.profile.profileFilePath)}
+                      alt='collection avatar'
+                      className='rounded-xl border-[5px] border-white dark:border-jacarta-600'
+                      width="160" height="160"
+                  />
+                  : <img src={user_avatar} alt="collection avatar"
+                         className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"/>
+            }
             <div
               className='absolute -right-3 bottom-0 flex h-6 w-6 items-center justify-center rounded-full border-2 
 							border-white bg-green dark:border-jacarta-600'
@@ -110,10 +124,10 @@ const UserProfile = () => {
 
         <div className='container'>
           <div className='text-center'>
-            <PageTitle title={state.profile.username} />
-            <CopyLink walletAddress={state.profile.address}/>
+            <PageTitle title={snap.profile.username} />
+            <CopyLink walletAddress={snap.profile.address}/>
             <p className='mx-auto mb-2 max-w-xl text-lg dark:text-jacarta-300'>
-              {state.profile.bio}
+              {snap.profile.bio}
             </p>
             {/*<span className='text-jacarta-400'>Joined December 2019</span>*/}
           </div>
@@ -121,70 +135,75 @@ const UserProfile = () => {
         <UserMenu />
       </section>
 
-      <section className='relative py-24 pt-20'>
-        <picture className='pointer-events-none absolute inset-0 -z-10 dark:hidden'>
-          <img src={gradient_light} alt='gradient' className='h-full w-full' />
-        </picture>
 
-        <div className='container'>
-          <UserNavigation setActiveWindow={setActiveWindow} />
-          {activeWindow === 'onSale' && <UserFilters />}
-          {activeWindow === 'onSale' && (
-            <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
-              <GridNFT
-                url={item_5}
-                name='Flourishing Cat#180'
-                price='From 8.49 ETH'
-                quantity='2/8'
-              />
-              <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
-              <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
-              <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
-              <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
-              <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
-              <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
-              <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
-            </div>
-          )}
-          {activeWindow === 'owned' && <UserFilters />}
-          {activeWindow === 'owned' && (
-            <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
-              <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
-              <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
-              <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
-              <GridNFT
-                url={item_5}
-                name='Flourishing Cat#180'
-                price='From 8.49 ETH'
-                quantity='2/8'
-              />
-              <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
-              <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
-              <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
-              <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
-            </div>
-          )}
-          {activeWindow === 'created' && <UserFilters />}
-          {activeWindow === 'created' && (
-            <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
-              <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
-              <GridNFT
-                url={item_5}
-                name='Flourishing Cat#180'
-                price='From 8.49 ETH'
-                quantity='2/8'
-              />
-              <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
-              <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
-              <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
-              <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
-              <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
-              <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
-            </div>
-          )}
-          {activeWindow === 'activity' && <Activity />}
-        </div>
-      </section>
+      {
+        snap.profile.address &&
+        <section className='relative py-24 pt-20'>
+          <picture className='pointer-events-none absolute inset-0 -z-10 dark:hidden'>
+            <img src={gradient_light} alt='gradient' className='h-full w-full' />
+          </picture>
+
+          <div className='container'>
+            <UserNavigation setActiveWindow={setActiveWindow} />
+            {activeWindow === 'onSale' && <UserFilters />}
+            {activeWindow === 'onSale' && (
+                <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
+                  <GridNFT
+                      url={item_5}
+                      name='Flourishing Cat#180'
+                      price='From 8.49 ETH'
+                      quantity='2/8'
+                  />
+                  <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
+                  <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
+                  <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
+                  <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
+                  <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
+                  <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
+                  <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
+                </div>
+            )}
+            {activeWindow === 'owned' && <UserFilters />}
+            {activeWindow === 'owned' && (
+                <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
+                  <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
+                  <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
+                  <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
+                  <GridNFT
+                      url={item_5}
+                      name='Flourishing Cat#180'
+                      price='From 8.49 ETH'
+                      quantity='2/8'
+                  />
+                  <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
+                  <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
+                  <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
+                  <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
+                </div>
+            )}
+            {activeWindow === 'created' && <UserFilters />}
+            {activeWindow === 'created' && (
+                <div className='grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4'>
+                  <GridNFT url={item_7} name='SwagFox#133' price='0.078 ETH' quantity='1/3' />
+                  <GridNFT
+                      url={item_5}
+                      name='Flourishing Cat#180'
+                      price='From 8.49 ETH'
+                      quantity='2/8'
+                  />
+                  <GridNFT url={item_6} name='Splendid Girl' price='10 ETH' quantity='2/3' />
+                  <GridNFT url={item_11} name='Asuna #1649' price='0.8 ETH' quantity='1/1' />
+                  <GridNFT url={item_9} name='Jedidia#149' price='0.16 ETH' quantity='1/1' />
+                  <GridNFT url={item_10} name='Artof Eve' price='0.13 FLOW' quantity='1/1' />
+                  <GridNFT url={item_8} name='Monkeyme#155' price='From 5 FLOW' quantity='1/1' />
+                  <GridNFT url={item_4} name='Amazing NFT art' price='From 5.9 ETH' quantity='1/7' />
+                </div>
+            )}
+            {activeWindow === 'activity' && <Activity />}
+          </div>
+        </section>
+      }
+
     </main>
   );
 };

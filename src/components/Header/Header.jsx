@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Search } from '../Search';
 import { Logo } from '../Logo';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { Modal } from '../Modal';
 import { HeaderModal } from '../HeaderModal';
 import { MobileMenu } from '../MobileMenu';
@@ -20,7 +20,8 @@ import PointBox from "./PointBox";
 
 
 
-const Header = () => {
+const Header = ({isLogin, setIsLogin, setModalIsOpen}) => {
+  const navigate = useNavigate();
 
   const [web3, setWeb3] = useState();
   useEffect(() => {
@@ -37,12 +38,12 @@ const Header = () => {
       await updateWallets();
     })();
 
-  }, []);
+  }, [isLogin]);
 
   const [address, setAddress] = useState('');
   const [ethBalance, setEthBalance] = useState('');
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
   const { status, connect, account, chainId, ethereum, switchChain, addChain } = useMetaMask();
 
@@ -98,6 +99,7 @@ const Header = () => {
       const {accessToken} = loginData;
       //console.log(`accessToken = ${accessToken}`);
       localStorage.setItem(`accessToken`, accessToken);
+      setIsLogin(true);
 
       await updateWallets();
     } catch (e) {
@@ -107,20 +109,31 @@ const Header = () => {
     }
   }
 
+  const isSignedIn = () => {
+    return (isLogin && status === 'connected');
+  }
+
+  const signOut = () => {
+    localStorage.setItem(`accessToken`, '');
+    setIsLogin(false);
+    alert(`로그아웃`);
+    navigate('/');
+  }
+
   return (
     <>
       {mobileMenuIsOpen && <MobileMenu setMobileMenuIsOpen={setMobileMenuIsOpen} />}
       <header className='js-page-header fixed top-0 z-20 w-full backdrop-blur transition-colors'>
         <div className='flex items-center px-6 py-6 xl:px-24'>
           <Logo />
-          <small>{status}</small>
+          {/*<small>{status}</small>*/}
           <Search />
           <div
             className='js-mobile-menu invisible fixed inset-0 z-10 ml-auto items-center
 				bg-white opacity-0 dark:bg-jacarta-800 lg:visible lg:relative lg:inset-auto
 					lg:flex lg:bg-transparent lg:opacity-100 dark:lg:bg-transparent'>
             {/* <Navigation /> */}
-            {modalIsOpen && (
+            {/*{modalIsOpen && (
               <Modal
                 onClick={async () => {
                   await openMetamask();
@@ -132,7 +145,7 @@ const Header = () => {
                 btnTitle='Get Metamask'
                 childrenBody={<HeaderModal />}
               />
-            )}
+            )}*/}
             <nav className='navbar w-full'>
               <ul className='flex flex-col lg:flex-row'>
                 <li className='group'>
@@ -162,11 +175,10 @@ const Header = () => {
                 <li className='group'>
                   <Link
                     onClick={(e) =>{
-                      if(status !== 'connected') {
+                      if(isSignedIn()) {
                         e.preventDefault();
                         setModalIsOpen(true);
                       }
-                      // alert('')
                     }}
                     to='/create'
                     className='flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-accent
@@ -177,42 +189,45 @@ const Header = () => {
               </ul>
             </nav>
             {/*setModalIsOpen((prev) => !prev)*/}
+
             <div className='ml-8 hidden lg:flex xl:ml-12'>
               {
-                false
-                &&
-                (<Link
-                  onClick={async () => {}}
-                  to='#'
-                  className='js-wallet group flex h-10 w-10 items-center justify-center rounded-full border
-							border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent
-							focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15]
-							dark:hover:bg-accent'
-                  data-bs-toggle='modal'
-                  data-bs-target='#walletModal'
-                  aria-label='wallet'>
+                isSignedIn() &&
+                <Link
+                    onClick={async () => {
+                      signOut();
+                    }}
+                    to='#'
+                    className='js-wallet group flex h-10 w-10 items-center justify-center rounded-full border
+                          border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent
+                          focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15]
+                          dark:hover:bg-accent'
+                    data-bs-toggle='modal'
+                    data-bs-target='#walletModal'
+                    aria-label='wallet'>
                   <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    width='24'
-                    height='24'
-                    className='h-4 w-4 fill-jacarta-700 transition-colors group-hover:fill-white
-								group-focus:fill-white dark:fill-white'>
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      width='24'
+                      height='24'
+                      className='h-4 w-4 fill-jacarta-700 transition-colors group-hover:fill-white
+                              group-focus:fill-white dark:fill-white'>
                     <path fill='none' d='M0 0h24v24H0z' />
                     <path
-                      d='M22 6h-7a6 6 0 1 0 0 12h7v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18a1
-								1 0 0 1 1 1v2zm-7 2h8v8h-8a4 4 0 1 1 0-8zm0 3v2h3v-2h-3z'
+                        d='M22 6h-7a6 6 0 1 0 0 12h7v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18a1
+                              1 0 0 1 1 1v2zm-7 2h8v8h-8a4 4 0 1 1 0-8zm0 3v2h3v-2h-3z'
                     />
                   </svg>
-                </Link>)
+                </Link>
               }
+
 
               {/* Profile */}
               <div className='js-nav-dropdown group-dropdown relative'>
                 <button
                   onClick={() => {
                     // open login modal when the state is not connected
-                    if(status === 'connected') { return }
+                    if(isSignedIn()) { return }
                     setModalIsOpen(true);
                   }}
                   className='dropdown-toggle group ml-2 flex h-10 w-10 items-center justify-center rounded-full border
@@ -245,7 +260,7 @@ const Header = () => {
 								lg:!translate-y-4 lg:py-4 lg:px-2 lg:opacity-0 lg:shadow-2xl'
                   aria-labelledby='profileDropdown'>
                   {
-                    (status === 'connected') ?
+                    (isSignedIn()) ?
                       <div>
                         <AddressLink address={address}/>
                         <BalanceBox balance={ethBalance}/>
@@ -255,6 +270,13 @@ const Header = () => {
                   {/*PointBox*/}
 
                   <Link
+                      onClick={() => {
+                        if(isSignedIn()) {
+                          navigate('/user');
+                        } else {
+                          setModalIsOpen(true);
+                        }
+                      }}
                     to='/user'
                     className='flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50
 									hover:text-accent focus:text-accent dark:hover:bg-jacarta-600'>
@@ -273,8 +295,16 @@ const Header = () => {
                       My Profile
                     </span>
                   </Link>
+
                   <Link
-                    to='/edit-profile'
+                      onClick={() => {
+                        if(isSignedIn()) {
+                          navigate('/edit-profile');
+                        } else {
+                          setModalIsOpen(true);
+                        }
+                      }}
+                      to='/edit-profile'
                     className='flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50
 									hover:text-accent focus:text-accent dark:hover:bg-jacarta-600'>
                     <svg
@@ -297,23 +327,30 @@ const Header = () => {
                       Edit Profile
                     </span>
                   </Link>
-                  <Link
-                    to='#'
-                    className='flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50
+
+                  {
+                    isSignedIn() &&
+                    <Link
+                        onClick={() => {
+                          signOut();
+                        }}
+                        to='#'
+                        className='flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50
 									hover:text-accent focus:text-accent dark:hover:bg-jacarta-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 24 24'
-                      width='24'
-                      height='24'
-                      className='h-4 w-4 fill-jacarta-700 transition-colors dark:fill-white'>
-                      <path fill='none' d='M0 0h24v24H0z' />
-                      <path d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7 11V8l-5 4 5 4v-3h8v-2H7z' />
-                    </svg>
-                    <span className='mt-1 font-display text-sm text-jacarta-700 dark:text-white'>
+                      <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 24 24'
+                          width='24'
+                          height='24'
+                          className='h-4 w-4 fill-jacarta-700 transition-colors dark:fill-white'>
+                        <path fill='none' d='M0 0h24v24H0z' />
+                        <path d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7 11V8l-5 4 5 4v-3h8v-2H7z' />
+                      </svg>
+                      <span className='mt-1 font-display text-sm text-jacarta-700 dark:text-white'>
                       Sign out
                     </span>
-                  </Link>
+                    </Link>
+                  }
                 </div>
               </div>
             </div>

@@ -15,7 +15,7 @@ const MainPage = () => {
   const state = proxy(DemoState);
   const { indexData: indexData } = useIndexQuery();
 
-  console.log(`indexData = ${JSON.stringify(indexData)}`)
+  //console.log(`indexData = ${JSON.stringify(indexData)}`)
 
   return (
     <main>

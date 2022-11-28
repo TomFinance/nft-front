@@ -32,11 +32,12 @@ const CopyLink = ({walletAddress}) => {
           }}
           className='js-copy-clipboard max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap dark:text-jacarta-200'
           data-tippy-content='Copy'>
-          <span>{walletAddress ?walletAddress : '0x7a86c0b064171007716bbd6af96676935799a63e'}</span>
+          <span>{walletAddress ?walletAddress : ''}</span>
         </button>
       </div>
     </Tippy>
   );
 };
+// 0x7a86c0b064171007716bbd6af96676935799a63e
 
 export { CopyLink };
