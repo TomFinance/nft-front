@@ -260,7 +260,7 @@ input[type='search']::-webkit-search-results-decoration {
   @apply opacity-75;
 }
 
-/* Lightbox Modal */
+/* Lightbox Modal  */
 .lightbox .modal-dialog {
   @apply flex min-h-[calc(100%_-_6rem)] max-w-5xl;
 }
