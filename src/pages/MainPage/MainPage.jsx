@@ -32,7 +32,7 @@ const MainPage = () => {
               Collect Digital Art.
             </h1>
             <p className='mb-8 text-lg dark:text-jacarta-200'>
-              Social-based NFT platform - SkyHall
+            Multi-chain based DeFi and NFT platform
             </p>
             <div className='inline-flex space-x-4'>
               <Link
@@ -55,9 +55,9 @@ const MainPage = () => {
       <BgSwiper
         data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
         />
-      <TopCreatorMain
+      {/*<TopCreatorMain
         data={(indexData && indexData.nftTopCreators) ? indexData.nftTopCreators : []}/>
-      <CreateAndSell />
+  <CreateAndSell />*/}
       <FeaturedCollection
         data={(indexData && indexData.nftFeaturedCollections) ? indexData.nftFeaturedCollections : []}/>
       <Partners />

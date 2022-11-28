@@ -12,19 +12,19 @@ const Partners = () => {
       <div className='container'>
         <div className='grid grid-cols-2 py-8 sm:grid-cols-5'>
           <Link to='#'>
-            <img src={partner_logo_1} alt='partner 1' />
+            <img src={partner_logo_1} alt='partner 1'/>
           </Link>
           <Link to='#'>
-            <img src={partner_logo_2} alt='partner 2' />
+            <img src={partner_logo_2} alt='partner 2'/>
           </Link>
           <Link to='#'>
-            <img src={partner_logo_3} alt='partner 3' />
+            <img src={partner_logo_3} alt='partner 3'/>
           </Link>
           <Link to='#'>
-            <img src={partner_logo_4} alt='partner 4' />
+            <img src={partner_logo_4} alt='partner 4'/>
           </Link>
           <Link to='#'>
-            <img src={partner_logo_5} alt='partner 5' />
+            <img src={partner_logo_5} alt='partner 5'/>
           </Link>
         </div>
       </div>

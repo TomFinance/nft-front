@@ -7,7 +7,9 @@ import { RankingList } from '../../pages/RankingListPage';
 import { UserProfileEdit } from '../../pages/UserProfileEditPage';
 import { UserProfile } from '../../pages/UserProfilePage';
 import { UsersActive } from '../../pages/UsersActivityPage';
-import {NFTListPage} from "../../pages/NFTListPage";
+import { NFTListPage } from "../../pages/NFTListPage";
+import { TermsPage } from "../../pages/TermsPage";
+import { PrivacyPage } from "../../pages/PrivacyPage";
 
 
 const Page404 = () => <h1>Four:oh:four</h1>;
@@ -24,6 +26,9 @@ const Layout = () => {
       <Route path='/create' element={<NFTItemUpload />} />
       <Route path='/collections' element={<NFTListPage />} />
       <Route path='/' element={<MainPage />} />
+      <Route path='/Terms_and_conditions' element={<TermsPage />} />
+      <Route path='/Privacy_policy' element={<PrivacyPage />} />
+      
       {/*<Route path="*" element={Page404}/>*/}
     </Routes>
   );

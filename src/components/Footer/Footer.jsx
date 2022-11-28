@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../../components/Logo';
 import { FooterMenu } from './FooterMenu';
+import { CopyRight } from '../../components/CopyRight';
 
 const marketplace = [{ name: 'All NFTs', url: '#' }];
 
-const company = [
-  { name: 'Contact Us', url: '#' },
-  { name: 'FAQ', url: '#' },
-];
+
+const copyRight = {
+  date_: new Date().getFullYear(), 
+  right_: "TOM FINANCE. All Rights Reserved", 
+  address : "Address : Suite 3, Global Village, Jivan's Complex, Mont Fleuri, Mahe, Seychelles",
+  email : "tom@tom.finance"
+}
+
 
 const myAccount = [
   { name: 'Authors', url: '#' },
@@ -26,37 +31,50 @@ const Footer = () => {
             <div className='mb-6 inline-block'>
               <Logo />
             </div>
-            <p className='mb-12 dark:text-jacarta-300'>Social-based NFT platform - SkyHall</p>
+            <p className='mb-12 dark:text-jacarta-300'>Multi-chain based DeFi and NFT platform</p>
 
             <div className='flex space-x-5'>
-              <Link to='https://twitter.com/aoneaaonea' className='group'>
-                <svg
-                  aria-hidden='true'
-                  focusable='false'
-                  data-prefix='fab'
-                  data-icon='twitter'
-                  className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white'
-                  role='img'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 512 512'>
-                  <path
-                    d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452
-										0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568
-										130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0
-										18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431
-										13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258
-										216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502
-										12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273
-										41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'></path>
+
+
+              <a href="https://etherscan.io/address/0xF7970499814654CD13Cb7B6E7634A12a7A8A9ABc" target="_blank" className='group' title="Contract">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white' viewBox="0 0 512 512">
+                  <path d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z" />
                 </svg>
-              </Link>
+              </a>
+
+              <a href="https://t.me/defitom" target="_blank" className='group' title="telegram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white' viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
+                </svg>
+              </a>
+
+              <a href="https://twitter.com/TOMSwapGroup" target="_blank" className='group' title="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white' viewBox="0 0 16 16">
+                  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                </svg>
+              </a>
+
+              <a href="https://github.com/TomFinance" target="_blank" className='group' title="github">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white' viewBox="0 0 16 16">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+              </a>
+
+              <a href="https://tom.finance/whitepaper/TOM_Whitepaper_kr.pdf" target="_blank" className='group' title="Docs">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className='h-5 w-5 fill-jacarta-300 group-hover:fill-accent dark:group-hover:fill-white' viewBox="0 0 16 16">
+                  <path d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1A2.5 2.5 0 0 0 6.5 5h3A2.5 2.5 0 0 0 12 2.5v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Z" />
+                </svg>
+              </a>
+
             </div>
+
+
           </div>
           <div className='col-span-full sm:col-span-3 md:col-span-2 md:col-start-7'>
-            <FooterMenu title='Marketplace' data={marketplace} />
+            {/*<FooterMenu title='Company' data={company} />*/}
           </div>
           <div className='col-span-full sm:col-span-3 md:col-span-2'>
-            <FooterMenu title='Company' data={company} />
+            <FooterMenu title='Marketplace' data={marketplace} />
           </div>
           <div className='col-span-full sm:col-span-3 md:col-span-2'>
             <FooterMenu title='My Account' data={myAccount} />
@@ -65,9 +83,7 @@ const Footer = () => {
 
         <div className='flex flex-col items-center justify-between space-y-2 py-8 sm:flex-row sm:space-y-0'>
           <span className='text-sm dark:text-jacarta-400'>
-            &copy;
-            <script>document.write(new Date().getFullYear())</script>
-            SkyHall. All Rights Reserved
+            <CopyRight data={copyRight} />
           </span>
           <ul className='flex flex-wrap space-x-4 text-sm dark:text-jacarta-400'>
             <li>
@@ -88,3 +104,4 @@ const Footer = () => {
 };
 
 export { Footer };
+

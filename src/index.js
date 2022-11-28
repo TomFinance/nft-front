@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { MetaMaskProvider } from "metamask-react";
+import { ScrollTop } from './components/ScrollTop';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <MetaMaskProvider>
       <BrowserRouter>
+        <ScrollTop />
         <App />
       </BrowserRouter>
     </MetaMaskProvider>

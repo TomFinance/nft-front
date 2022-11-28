@@ -6,10 +6,10 @@ import logo_white from '../../img/logo_white.png';
 const Logo = () => {
   return (
     <Link to='/index' className='shrink-0 '>
-      <img src={logo} className='max-h-7 dark:hidden' alt='Xhibiter | NFT Marketplace' />
+      <img src={logo} className='max-h-12 dark:hidden' alt='Xhibiter | NFT Marketplace' />
       <img
         src={logo_white}
-        className='hidden max-h-7 dark:block'
+        className='hidden max-h-12 dark:block'
         alt='Xhibiter | NFT Marketplace'
       />
     </Link>

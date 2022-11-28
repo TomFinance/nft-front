@@ -8,6 +8,8 @@ const FooterMenu = ({ title, data }) => {
       <ul className='flex flex-col space-y-1 dark:text-jacarta-300'>
         {data?.map((item) => {
           return (
+           
+            //onClick={() => item.mailto === '' ? 'javascript:;' : window.location = item.mailto}
             <li key={item.name}>
               <Link to={item.url} className='hover:text-accent dark:hover:text-white'>
                 {item.name}
