@@ -24,8 +24,8 @@ const PriceRange = () => {
           data-bs-toggle='dropdown'
           aria-expanded='false'>
           <span className='flex items-center font-display'>
-            <img src='img/chains/a1a.png' alt='a1a' className='mr-2 h-5 w-5 rounded-full' />
-            A1A
+            <img src='img/chains/TOM.png' alt='TOM' className='mr-2 h-5 w-5 rounded-full' />
+            TOM
           </span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -47,8 +47,8 @@ const PriceRange = () => {
 					px-5 py-2 text-left font-display text-sm text-jacarta-700 transition-colors 
 					hover:bg-jacarta-50 dark:text-white dark:hover:bg-jacarta-600'>
             <span className='flex items-center'>
-              <img src='img/chains/a1a.png' alt='a1a' className='mr-2 h-5 w-5 rounded-full' />
-              A1A
+              <img src='img/chains/TOM.png' alt='TOM' className='mr-2 h-5 w-5 rounded-full' />
+              TOM
             </span>
           </button>
           <button

@@ -49,12 +49,12 @@ const MainPage = () => {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      <BgSwiper
-        data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
-        />
+          <BgSwiper
+            data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
+            />
+        </div>
+        </section>
       {/*<TopCreatorMain
         data={(indexData && indexData.nftTopCreators) ? indexData.nftTopCreators : []}/>
   <CreateAndSell />*/}

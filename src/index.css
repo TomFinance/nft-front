@@ -58,6 +58,7 @@
 
 body {
   @apply overflow-x-hidden font-body text-jacarta-500 dark:bg-jacarta-900;
+   
 }
 
 input[type='search']::-ms-clear {

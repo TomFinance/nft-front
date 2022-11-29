@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import gradient_light from '../../img/gradient_light.jpg';
-import a1a from '../../img/chains/a1a.png';
+import TOM from '../../img/chains/TOM.png';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Modal } from '../../components/Modal';
@@ -328,7 +328,7 @@ const NFTItemUpload = () => {
                     data-bs-toggle='dropdown'
                     aria-expanded='false'>
                     <span className='flex items-center'>
-                      <img src={a1a} alt='a1a' className='mr-2 h-5 w-5 rounded-full' />
+                      <img src={TOM} alt='TOM' className='mr-2 h-5 w-5 rounded-full' />
                       AONEA
                     </span>
                     <svg

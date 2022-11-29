@@ -39,15 +39,14 @@ const data = [
 
 const BgSwiper = ({data}) => {
   return (
-    <div className='relative'>
-      <div className='flex justify-center !pb-5'>
-        <div className='relative max-w-[1170px]'>
-          <Left />
+        <div className='relative'>
           <Swiper
+            className="swiper card-slider-3-columns !pb-5 swiper-initialized swiper-horizontal"
+            slidesPerView={1}
             modules={[Navigation]}
-            spaceBetween={30}
-            slidesPerView={3}
-            // navigation={true}
+            spaceBetween={16}
+            breakpoints={{768:{slidesPerView:2}, 1024:{slidesPerView:3}}}
+            navigation={{nextEl: '.swiper-button-next-3',prevEl: '.swiper-button-prev-3'}}
           >
             {data.map((card) => {
               return (
@@ -62,10 +61,9 @@ const BgSwiper = ({data}) => {
               );
             })}
           </Swiper>
+          <Left />
           <Right />
         </div>
-      </div>
-    </div>
   );
 };
 

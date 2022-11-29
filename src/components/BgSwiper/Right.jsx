@@ -3,7 +3,7 @@ import React from 'react';
 const Right = () => {
   return (
     <div
-      className='swiper-button-next-3 group absolute top-1/2 -right-4 z-10 -mt-6 flex h-12 w-12 cursor-pointer 
+      className='group swiper-button-next-3 shadow-white-volume absolute top-1/2 -right-4 z-10 -mt-6 flex h-12 w-12 cursor-pointer 
 					items-center justify-center rounded-full bg-white p-3 text-base shadow-white-volume sm:-right-6'>
       <svg
         xmlns='http://www.w3.org/2000/svg'

@@ -1,5 +1,5 @@
 import React from 'react';
-import a1a from '../../../img/chains/a1a.png';
+import TOM from '../../../img/chains/TOM.png';
 import usdt from '../../../img/chains/usdt.png';
 import klay from '../../../img/chains/klay.png';
 
@@ -18,14 +18,14 @@ const CreateBlockchainMenu = ({onClick}) => {
       <button
         onClick={() => {
           if(onClick) {
-            onClick('AONEA');
+            onClick('TOM');
           }
         }}
         className='dropdown-item flex w-full items-center justify-between rounded-xl px-5 py-2 text-left text-base
 		text-jacarta-700 transition-colors hover:bg-jacarta-50 dark:text-white dark:hover:bg-jacarta-600'>
         <span className='flex items-center'>
-          <img src={a1a} alt='a1a' className='mr-2 h-5 w-5 rounded-full' />
-          AONEA
+          <img src={TOM} alt='TOM' className='mr-2 h-5 w-5 rounded-full' />
+          TOM
         </span>
       </button>
       <button

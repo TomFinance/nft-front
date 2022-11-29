@@ -4,7 +4,7 @@ import item_single_large from '../../img/products/item_single_large.jpg';
 import {Link, useParams} from 'react-router-dom';
 import avatar_1 from '../../img/avatars/avatar_1.jpg';
 import avatar_7 from '../../img/avatars/avatar_7.jpg';
-import a1a from '../../img/chains/a1a.png';
+import TOM from '../../img/chains/TOM.png';
 import { ItemTabs } from '../../components/ItemTabs';
 import { Offers } from '../../components/ItemTabs/Offers';
 import { Properties } from '../../components/ItemTabs/Properties/Properties';
@@ -205,10 +205,10 @@ const ItemDetail = () => {
                       <div>
                         <div className='flex items-center whitespace-nowrap'>
                           <span className='-ml-1' data-tippy-content='ETH'>
-                            <img src={a1a} alt='a1a' className='mr-2 h-10 w-10 rounded-full' />
+                            <img src={TOM} alt='TOM' className='mr-2 h-10 w-10 rounded-full' />
                           </span>
                           <span className='text-4xl font-medium leading-tight tracking-tight text-green'>
-                            {"1"} KLAY
+                            {"1"} TOM
                           </span>
                           <span className='ml-2 text-lg text-jacarta-400 dark:text-jacarta-300'>
                             {/*($200.21)*/}
@@ -267,7 +267,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
   {
     url: item_2,
@@ -275,7 +275,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
   {
     url: item_6,
@@ -283,7 +283,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
   {
     url: item_4,
@@ -291,7 +291,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
   {
     url: item_3,
@@ -299,7 +299,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
   {
     url: item_5,
@@ -307,7 +307,7 @@ const data = [
     title: 'ETH Me Outside',
     likes: '159',
     countComment: '10',
-    currentBid: '1.3 A1A',
+    currentBid: '1.3 TOM',
   },
 ];
 
