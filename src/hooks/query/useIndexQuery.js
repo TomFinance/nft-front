@@ -53,7 +53,7 @@ const { data } = useQuery('getMenu', () =>
 const endpoint = `http://3.34.108.135:6001`;
 
 const useIndexQuery = () => {
-  // console.log(`useIndexQuery()`);
+  console.log(`useIndexQuery()`);
   const { data: indexData } = useQuery('indexData', () =>
     fetch(`${endpoint}/index`).then((res) => res.json())
   );

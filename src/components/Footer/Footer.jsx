@@ -4,7 +4,7 @@ import { Logo } from '../../components/Logo';
 import { FooterMenu } from './FooterMenu';
 import { CopyRight } from '../../components/CopyRight';
 
-const marketplace = [{ name: 'All NFTs', url: '#' }];
+const marketplace = [{ name: 'All NFTs', url: '/collections' }];
 
 
 const copyRight = {
@@ -17,9 +17,9 @@ const copyRight = {
 
 const myAccount = [
   { name: 'Authors', url: '#' },
-  { name: 'Collection', url: '#' },
-  { name: 'Author Profile', url: '#' },
-  { name: 'Create Item', url: '#' },
+  { name: 'Collection', url: '/rankings' },
+  { name: 'Author Profile', url: '/user' },
+  { name: 'Create Item', url: '/create' },
 ];
 
 const Footer = () => {

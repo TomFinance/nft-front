@@ -50,9 +50,9 @@ const MainPage = () => {
             </div>
           </div>
 
-          <BgSwiper
-            data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
-            />
+        <BgSwiper
+          data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
+          />
         </div>
         </section>
       {/*<TopCreatorMain

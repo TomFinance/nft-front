@@ -4,7 +4,7 @@ import conment from '../../img/conment.svg';
 
 const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
   return (
-    <div className='max-w-[270px]'>
+    <div>
       <article>
         <div
           className='block rounded-2.5xl border border-jacarta-100 bg-white p-[1.1875rem] transition-shadow 

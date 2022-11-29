@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/scss/navigation';
 import { Left } from './Left';
 import { Right } from './Right';
+import arrayShuffle from 'array-shuffle';
 
 /*
 import item_12_lg from '../../img/products/item_12_lg.jpg';
@@ -38,6 +39,8 @@ const data = [
 ];*/
 
 const BgSwiper = ({data}) => {
+  data = arrayShuffle(data);
+  
   return (
         <div className='relative'>
           <Swiper
@@ -46,7 +49,7 @@ const BgSwiper = ({data}) => {
             modules={[Navigation]}
             spaceBetween={16}
             breakpoints={{768:{slidesPerView:2}, 1024:{slidesPerView:3}}}
-            navigation={{nextEl: '.swiper-button-next-3',prevEl: '.swiper-button-prev-3'}}
+            navigation={{nextEl: '.nbn1',prevEl: '.pbn1'}}
           >
             {data.map((card) => {
               return (
