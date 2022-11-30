@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const HeaderModal = () => {
+const HeaderModalNoMetamask = () => {
   return (
     <div className="modal-body p-6 text-center">
       {/* SVG */}
@@ -104,15 +104,13 @@ const HeaderModal = () => {
       </svg>
       {/* SVG */}
       <p>
-        You are not logged in
-        {/* You don't have MetaMask in your browser, please download it from */}
-        {/* <Link className='text-accent' to='https://metamask.io/'>
-          {' '}
+        You don't have MetaMask in your browser, please download it from &nbsp;
+        <Link className="text-accent" to="https://metamask.io/">
           MetaMask
-        </Link> */}
+        </Link>
       </p>
     </div>
   );
 };
 
-export { HeaderModal };
+export { HeaderModalNoMetamask };
