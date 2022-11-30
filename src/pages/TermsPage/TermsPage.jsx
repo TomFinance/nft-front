@@ -9,7 +9,7 @@ const TermsPage = () => {
             Terms Of Service
           </h1>
           <div class="article-content mx-auto max-w-[48.125rem]">
-            <h2 class="text-base">1 – ACCEPTING THESE TERMS</h2>
+            <h2 class="text-base">1 – ACCEPTING THESE TERMS.</h2>
             <p>
             Please read these Terms of Service (the “Terms”), carefully, before using TOMNFT.io (the “Website”) provided by CBNK Ltd. (“TOM MARKETPLACE”) and its affiliates, whether as a guest or registered user. The Website is a marketplace for users who want to create, buy, and sell NFTs. The Website provides a non-custodial interface that allows you to display your NFTs, as well as withdraw them to external wallets, or deposit NFTs from external wallets and display them on the Website.
             </p>
