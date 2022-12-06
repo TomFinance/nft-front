@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Details = () => {
+const Details = ({ cryptoaddress, tokenid }) => {
   return (
     <div
       // className='tab-pane fade'
@@ -14,7 +14,7 @@ const Details = () => {
         <div className='mb-2 flex items-center'>
           <span className='mr-2 min-w-[9rem] dark:text-jacarta-300'>Contract Address:</span>
           <Link to='#' className='text-accent'>
-            0x1cBB182322Aee8ce9F4F1f98d7460173ee30Af1F
+            {cryptoaddress}
           </Link>
         </div>
         <div className='mb-2 flex items-center'>
@@ -22,7 +22,7 @@ const Details = () => {
           <span
             className='js-copy-clipboard cursor-pointer select-none text-jacarta-700 dark:text-white'
             data-tippy-content='Copy'>
-            7714
+            {tokenid}
           </span>
         </div>
         <div className='mb-2 flex items-center'>

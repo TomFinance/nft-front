@@ -17,7 +17,7 @@ const copyRight = {
 
 const myAccount = [
   { name: 'Authors', url: '#' },
-  { name: 'Collection', url: '/rankings' },
+  /*{ name: 'Collection', url: '/rankings' },*/
   { name: 'Author Profile', url: '/user' },
   { name: 'Create Item', url: '/create' },
 ];

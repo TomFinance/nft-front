@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import gradient_light from '../../img/gradient_light.jpg';
 import item_single_large from '../../img/products/item_single_large.jpg';
 import {Link, useParams} from 'react-router-dom';
@@ -16,6 +16,7 @@ import item_1 from '../../img/products/item_1.jpg';
 import item_2 from '../../img/products/item_2.jpg';
 import item_6 from '../../img/products/item_6.jpg';
 import item_4 from '../../img/products/item_4.jpg';
+
 import item_3 from '../../img/products/item_3.gif';
 import item_5 from '../../img/products/item_5.jpg';
 import { Modal } from '../../components/Modal';
@@ -30,9 +31,12 @@ const ItemDetail = () => {
   const state = proxy(AppState);
   const { itemId } = useParams();
 
-  const [activeTab, setActiveTab] = useState('offers');
+  const [activeTab, setActiveTab] = useState('details');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  
+  const [likesCnt, setLikes] = useState(0);
+  const [likesChk, setlikesChk] = useState(false);
 
   /*
   const nftDatas = state.nftListData.items.filter(x => x.id === parseInt(itemId));
@@ -51,9 +55,44 @@ const ItemDetail = () => {
           quantity='2/8'
       />))*/
 
-  const collectionAsset = JSON.parse(DemoStateMerge.nftItem(itemId))[0];
-  console.log(collectionAsset)
+  const collectionAsset = JSON.parse(DemoStateMerge.nftItem(itemId));
+  const collectionAssetMoreItem = JSON.parse(DemoStateMerge.nftGroupItem(collectionAsset.group));
 
+  
+  let likesStorage = [];
+  useEffect(() => {
+    setLikes(collectionAsset.likes);
+    if(localStorage.likes === undefined){
+      localStorage.setItem('likes', JSON.stringify([]));
+    }
+    likeStatusChg(collectionAsset.likes);
+  }, []);
+
+  const likeStatusChg = (likesValue) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(collectionAsset.idx)){
+      setlikesChk(likesStorage.includes(collectionAsset.idx));
+      setLikes(likesValue + 1);
+    }
+  }
+
+  //btn click
+  const increaseLikes = (itemid) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(collectionAsset.idx)){ 
+      setLikes(likesCnt - 1);
+      likesStorage = likesStorage.filter((element) => element !== itemid);
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setlikesChk(false);
+    }else{
+      likesStorage.push(itemid);
+      likesStorage = [...new Set(likesStorage)];
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setLikes(likesCnt + 1);
+      setlikesChk(true);
+    }
+  }
+  
   return (
     <main className='mt-24'>
       {modalIsOpen && (
@@ -61,7 +100,7 @@ const ItemDetail = () => {
           setModalIsOpen={setModalIsOpen}
           title='Buy'
           btnTitle='Buy now'
-          childrenBody={<ModalBodyBuy />}
+          childrenBody={<ModalBodyBuy itemId={itemId} />}
           styledWrapper='modal-dialog max-w-2xl'
         />
       )}
@@ -86,7 +125,7 @@ const ItemDetail = () => {
                   {collectionAsset.title}
                 </h1>
                 <div className='ml-auto flex space-x-2'>
-                  <div
+                  <div onClick={() => increaseLikes(collectionAsset.idx)}
                     className='flex items-center space-x-1 rounded-xl border border-jacarta-100 bg-white py-2 px-4 
 									dark:border-jacarta-600 dark:bg-jacarta-700'>
                     <span
@@ -105,11 +144,14 @@ const ItemDetail = () => {
 												8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 
 												1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 
 												1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z'></path>
+                        {likesChk ? <path fill="red"
+                          d='M 12 4.5 c 2.3 -2.1 6 -2 8.2 0.2 c 2.3 2.3 2.3 5.9 0.2 8.2 l -8.5 8.5 l -8.5 -8.5 c -2.1 -2.4 -2 -6 0.2 -8.2 c 2.3 -2.3 5.9 -2.3 8.2 -0.2 z'
+                        /> : ""}
                       </svg>
                     </span>
-                    <span className='text-sm dark:text-jacarta-200'>188</span>
+                    <span className='text-sm dark:text-jacarta-200'>{likesCnt}</span>
                   </div>
-                  <div
+                  {/*<div
                     className='dropdown relative rounded-xl border border-jacarta-100 bg-white hover:bg-jacarta-100 
 									dark:border-jacarta-600 dark:bg-jacarta-700 dark:hover:bg-jacarta-600'>
                     <Link
@@ -133,7 +175,7 @@ const ItemDetail = () => {
                       </svg>
                     </Link>
                     {menuIsOpen && <ItemDropMenu />}
-                  </div>
+      </div>*/}
                 </div>
               </div>
 
@@ -144,7 +186,7 @@ const ItemDetail = () => {
                 <div className='mr-8 mb-4 flex'>
                   <figure className='mr-4 shrink-0'>
                     <Link to='/user' className='relative block'>
-                      <img src={avatar_7} alt='avatar 7' className='rounded-2lg' loading='lazy' />
+                      <img src={collectionAsset.avatar} alt='avatar 7' className='rounded-2lg' loading='lazy' />
                       <div
                         className='absolute -right-3 top-[60%] flex h-6 w-6 items-center justify-center rounded-full border-2 
 												border-white bg-green dark:border-jacarta-600'
@@ -242,7 +284,7 @@ const ItemDetail = () => {
               <div className='tab-content'>
                 {activeTab === 'offers' && <Offers />}
                 {activeTab === 'properties' && <Properties />}
-                {activeTab === 'details' && <Details />}
+                {activeTab === 'details' && <Details cryptoaddress={collectionAsset.cryptoaddress} tokenid={collectionAsset.tokenid}/>}
                 {activeTab === 'activity' && <Activity />}
                 {activeTab === 'priceHistory' && <PriceHistory />}
               </div>
@@ -256,7 +298,7 @@ const ItemDetail = () => {
           <h2 className='mb-8 text-center font-display text-3xl text-jacarta-700 dark:text-white'>
             More from this items
           </h2>
-          <SmSwiper data={data} />
+          <SmSwiper data={collectionAssetMoreItem} />
         </div>
       </section>
     </main>

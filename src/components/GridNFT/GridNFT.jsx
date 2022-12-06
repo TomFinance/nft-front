@@ -1,13 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import creator_1 from '../../img/avatars/creator_1.png';
 import owner_1 from '../../img/avatars/owner_1.png';
 import { Modal } from '../../components/Modal';
 import { ModalUserBuy } from '../ModalUserBuy';
+import favoriteLikeIcon from '../../img/a103374135dc865e7608.svg'
 
-const GridNFT = ({ id, url, name, price, quantity }) => {
+const GridNFT = ({ id, url, name, price, quantity, likes }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [likesCnt, setLikes] = useState(0);
+  const [likesChk, setlikesChk] = useState(false);
   const itemPath = `/item/${id}`;
+
+  let likesStorage = [];
+  useEffect(() => {
+    setLikes(likes);
+    if(localStorage.likes === undefined){
+      localStorage.setItem('likes', JSON.stringify([]));
+    }
+    likeStatusChg(likes);
+  }, []);
+
+  const likeStatusChg = (likesValue) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(id)){
+      setlikesChk(likesStorage.includes(id));
+      setLikes(likesValue + 1);
+    }
+  }
+
+  //btn click
+  const increaseLikes = (itemid) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(id)){ 
+      setLikes(likesCnt - 1);
+      likesStorage = likesStorage.filter((element) => element !== itemid);
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setlikesChk(false);
+    }else{
+      likesStorage.push(itemid);
+      likesStorage = [...new Set(likesStorage)];
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setLikes(likesCnt + 1);
+      setlikesChk(true);
+    }
+  }
+
 
   return (
     <article>
@@ -27,8 +65,8 @@ const GridNFT = ({ id, url, name, price, quantity }) => {
           <Link to={itemPath}>
             <img src={url} alt='item 5' className='w-full rounded-[0.625rem] aspect-[1/1]' loading='lazy' />
           </Link>
-          <div className='absolute top-3 right-3 flex items-center space-x-1 rounded-md bg-white p-2 dark:bg-jacarta-700'>
-            <span
+          <div className='absolute top-3 right-3 flex items-center space-x-1 rounded-md bg-white p-2 dark:bg-jacarta-700' onClick={() => increaseLikes(id)}>
+            <span 
               className='js-likes relative cursor-pointer before:absolute before:h-4 before:w-4 before:bg-cover 
 							before:bg-center before:bg-no-repeat before:opacity-0'
               data-tippy-content='Favorite'>
@@ -39,20 +77,25 @@ const GridNFT = ({ id, url, name, price, quantity }) => {
                 height='24'
                 className='h-4 w-4 fill-jacarta-500 hover:fill-red dark:fill-jacarta-200 dark:hover:fill-red'>
                 <path fill='none' d='M0 0H24V24H0z' />
-                <path
+                <path 
                   d='M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 
 								8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 
 								1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 
 								1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z'
                 />
+                {likesChk ? <path fill="red"
+                  d='M 12 4.5 c 2.3 -2.1 6 -2 8.2 0.2 c 2.3 2.3 2.3 5.9 0.2 8.2 l -8.5 8.5 l -8.5 -8.5 c -2.1 -2.4 -2 -6 0.2 -8.2 c 2.3 -2.3 5.9 -2.3 8.2 -0.2 z'
+                /> : ""}
+                
               </svg>
+              {/*<img src={favoriteLikeIcon} width='16' height='16' />*/}
             </span>
-            <span className='text-sm dark:text-jacarta-200'>15</span>
+            <span className='text-sm dark:text-jacarta-200'>{likesCnt}</span>
           </div>
-
+          
         </figure>
         <div className='mt-7 flex items-center justify-between'>
-          <Link to='item.html'>
+          <Link to={itemPath}>
             <span className='font-display text-base text-jacarta-700 hover:text-accent dark:text-white'>
               {name ? name : "-"}
             </span>
@@ -107,7 +150,7 @@ const GridNFT = ({ id, url, name, price, quantity }) => {
         </div>
         <div className='mt-2 text-sm'>
           <span className='mr-1 text-jacarta-700 dark:text-jacarta-200'>{price} TOM</span>
-          {/*<span className='text-jacarta-500 dark:text-jacarta-300'>{quantity}</span>*/}
+          <span className='text-jacarta-500 dark:text-jacarta-300'>{quantity}</span>
         </div>
 
         <div className='mt-8 flex items-center justify-between'>
@@ -138,6 +181,7 @@ const GridNFT = ({ id, url, name, price, quantity }) => {
           </Link>*/}
         </div>
       </div>
+      
     </article>
   );
 };

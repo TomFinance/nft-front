@@ -36,7 +36,7 @@ const SmSwiper = ({ data }) => {
                   alt={grid.title}
                   title={grid.title}
                   price={grid.price}
-                  likes="0"//{grid.likes}
+                  likes={grid.likes}
                   countComment="0"//{grid.countComment}
                   currentBid={grid.name}//{grid.currentBid}
                 />

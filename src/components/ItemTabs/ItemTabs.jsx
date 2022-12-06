@@ -4,7 +4,7 @@ const ItemTabs = ({ setActiveTab }) => {
   return (
     <ul className='nav nav-tabs flex items-center' role='tablist'>
       {/* Offers */}
-      <li className='nav-item' role='presentation' onClick={() => setActiveTab('offers')}>
+       {/*<li className='nav-item' role='presentation' onClick={() => setActiveTab('offers')}>
         <button
           className='nav-link active relative flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 
 					dark:hover:text-white'
@@ -26,10 +26,10 @@ const ItemTabs = ({ setActiveTab }) => {
           </svg>
           <span className='font-display text-base font-medium'>Offers</span>
         </button>
-      </li>
+      </li>*/}
 
       {/* Properties */}
-      <li className='nav-item' role='presentation' onClick={() => setActiveTab('properties')}>
+      {/*<li className='nav-item' role='presentation' onClick={() => setActiveTab('properties')}>
         <button
           className='nav-link relative flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 
 					dark:hover:text-white'
@@ -52,7 +52,7 @@ const ItemTabs = ({ setActiveTab }) => {
           </svg>
           <span className='font-display text-base font-medium'>Properties</span>
         </button>
-      </li>
+      </li>*/}
 
       {/* Details */}
       <li className='nav-item' role='presentation' onClick={() => setActiveTab('details')}>

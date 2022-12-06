@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState, useEffect } from "react";
 import gradient from "../../img/gradient.jpg";
 import gradient_dark from "../../img/gradient_dark.jpg";
 import { TopCreatorMain } from "../../components/TopCreatorMain";
@@ -31,6 +31,7 @@ import { Activity } from "../../components/Activity";
 import AppState from "../../AppState";
 import DemoStateMerge from "../../stores/DemoStateMerge";
 
+
 function usePosts() {
   return useQuery(["posts"], async () => {
     const { data } = await axios.get(
@@ -41,6 +42,23 @@ function usePosts() {
 }
 
 const NFTListPage = () => {
+  useEffect(() => {
+    getNftData()
+  }, []);
+
+  
+  const [ITEMs, setItems] = useState([]);
+  const [CurrentPage, setCurrentPage] = useState(1);
+
+  const loadMoreItems = () => {
+    getNftData();
+  }
+
+  const getNftData = () => {
+    setItems([...ITEMs, ...JSON.parse(DemoStateMerge.nftPage(CurrentPage))]);
+    setCurrentPage(CurrentPage + 1);
+  }
+
   //const state = proxy(AppState);
   // const { indexData: indexData } = useMarketSalesListQuery();
   // console.log(`indexData = ${JSON.stringify(indexData)}`)
@@ -80,13 +98,15 @@ const NFTListPage = () => {
                       price="0.1 ETH"
                     />
                 ))*/}
-              {
-                 JSON.parse(DemoStateMerge.nftPage(1)).map((card) => (
-                  <GridNFT
+              { ITEMs && 
+                 ITEMs.map((card) => (
+                  <GridNFT key={card.image}
                     id={card.idx}
                     url={card.image}
                     name={card.title}
                     price={card.price}
+                    quantity = "0"
+                    likes={card.likes}
                   />
                 ))
               }
@@ -94,10 +114,10 @@ const NFTListPage = () => {
           }
           
           <div class="mt-10 text-center">
-            <a
-              href="blog.html"
+            <Link to="#"
+            onClick={loadMoreItems}
               class="bg-accent shadow-accent-volume hover:bg-accent-dark inline-block rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
-              >Load More</a
+              >Load More</Link
             >
           </div>
         </div>

@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import conment from '../../img/conment.svg';
 
-const SwipeElement = ({ idx,url, alt, title, price, likes, countComment, currentBid }) => {
+const SwipeElement = ({ idx, url, alt, title, price, likes, countComment, currentBid }) => {
   const itemPath = `/item/${idx}`;
+  const [likesCnt, setLikes] = useState(0);
+  const [likesChk, setlikesChk] = useState(false);
+  
+  let likesStorage = [];
+  useEffect(() => {
+    setLikes(likes);
+    if(localStorage.likes === undefined){
+      localStorage.setItem('likes', JSON.stringify([]));
+    }
+    likeStatusChg(likes);
+  }, []);
+
+  const likeStatusChg = (likesValue) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(idx)){
+      setlikesChk(likesStorage.includes(idx));
+      setLikes(likesValue + 1);
+    }
+  }
+
+  //btn click
+  const increaseLikes = (itemid) => {
+    likesStorage = JSON.parse(localStorage.getItem('likes'));
+    if(likesStorage.includes(idx)){ 
+      setLikes(likesCnt - 1);
+      likesStorage = likesStorage.filter((element) => element !== itemid);
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setlikesChk(false);
+    }else{
+      likesStorage.push(itemid);
+      likesStorage = [...new Set(likesStorage)];
+      localStorage.setItem('likes', JSON.stringify(likesStorage));
+      setLikes(likesCnt + 1);
+      setlikesChk(true);
+    }
+  }
+
   return (
     <div>
       <article>
@@ -47,7 +84,7 @@ const SwipeElement = ({ idx,url, alt, title, price, likes, countComment, current
               data-bs-target='#placeBidModal'>
               Buy now
             </button>
-            <div className='flex items-center space-x-1'>
+            <div className='flex items-center space-x-1' onClick={() => increaseLikes(idx)}>
               <span
                 className='js-likes relative cursor-pointer before:absolute before:h-4 before:w-4 before:bg-cover 
 								before:bg-center before:bg-no-repeat before:opacity-0'
@@ -63,9 +100,13 @@ const SwipeElement = ({ idx,url, alt, title, price, likes, countComment, current
 									8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 
 									1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 
 									1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z' />
+                  
+                  {likesChk ? <path fill="red"
+                    d='M 12 4.5 c 2.3 -2.1 6 -2 8.2 0.2 c 2.3 2.3 2.3 5.9 0.2 8.2 l -8.5 8.5 l -8.5 -8.5 c -2.1 -2.4 -2 -6 0.2 -8.2 c 2.3 -2.3 5.9 -2.3 8.2 -0.2 z'
+                  /> : ""}
                 </svg>
               </span>
-              <span className='text-sm dark:text-jacarta-200'>{likes}</span>
+              <span className='text-sm dark:text-jacarta-200'>{likesCnt}</span>
             </div>
           </div>
           {/*<div className='mt-2 flex items-center justify-between'>

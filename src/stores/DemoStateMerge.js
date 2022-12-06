@@ -8,47 +8,26 @@ import DemoState5 from "../stores/DemoStatePartner5";
 import DemoStateKey from "../stores/DemoDataKey";
 import arrayShuffle from 'array-shuffle';
 
+const stateLikeKey = JSON.parse(DemoStateKey.nftLikes);
+const stateData1 = JSON.parse(DemoState1.nftRepresentatives);
+const stateData2 = JSON.parse(DemoState2.nftRepresentatives);
+const stateData3 = JSON.parse(DemoState3.nftRepresentatives);
+const stateData4 = JSON.parse(DemoState4.nftRepresentatives);
+const stateData5 = JSON.parse(DemoState5.nftRepresentatives);
+const stateDataKey = JSON.parse(DemoStateKey.nftRepresentatives);
 
-const state1 = proxy(DemoState1);
-const state2 = proxy(DemoState2);
-const state3 = proxy(DemoState3);
-const state4 = proxy(DemoState4);
-const state5 = proxy(DemoState5);
-const stateKey = proxy(DemoStateKey);
-const stateData1 = JSON.parse(state1.nftRepresentatives);
-const stateData2 = JSON.parse(state2.nftRepresentatives);
-const stateData3 = JSON.parse(state3.nftRepresentatives);
-const stateData4 = JSON.parse(state4.nftRepresentatives);
-const stateData5 = JSON.parse(state5.nftRepresentatives);
-const stateDataKey = JSON.parse(stateKey.nftRepresentatives);
 
-const createData = function(){
+//const
+const createData = () => {
   const dataTempArray = [];
   const dataTempReturnArray = [];
-  for (let i = 0; i < stateData1.length; i++) {
-    dataTempArray.push(stateData1[i]);
-  }
-
-  for (let i = 0; i < stateData2.length; i++) {
-    dataTempArray.push(stateData2[i]);
-  }
-
-  for (let i = 0; i < stateData3.length; i++) {
-    dataTempArray.push(stateData3[i]);
-  }
-
-  for (let i = 0; i < stateData4.length; i++) {
-    dataTempArray.push(stateData4[i]);
-  }
-
-  for (let i = 0; i < stateData5.length; i++) {
-    dataTempArray.push(stateData5[i]);
-  }
+  dataTempArray.push(...stateData1, ...stateData2, ...stateData3, ...stateData4, ...stateData5)
 
   for (let i = 0; i < stateDataKey.length; i++) {
     let dataTempMap = {};
     dataTempMap = dataTempArray[stateDataKey[i]];
     dataTempMap.idx = stateDataKey[i];
+    dataTempMap.likes = stateLikeKey[i];
     dataTempReturnArray.push(dataTempMap);  
   }
 
@@ -57,51 +36,64 @@ const createData = function(){
 
 
 //----------------------------------------------------------
-const getNftData = function(merge, arr, pg){
-  for (let i = 0; i < stateDataKey.length; i++) {
-    if(i < pg){
-      //console.log(i);
+const getNftPageData = (merge, arr, st, ed) => {
+  //console.log(st + "#" + ed)
+  for (let i = st; i < stateDataKey.length; i++) {
+    if(i < ed){
       arr.push(merge[stateDataKey[i]]);  
     }else{
       break;
     }
   }
-
   return arr;
 }
 
-const getNftRanData = function(merge, arr, viewCnt){
+const getNftRanData = (merge, arr, viewCnt) => {
   for (let i = 0; i < viewCnt; i++) {
-    //console.log("random : " + Math.floor(Math.random() * merge.length));
     arr.push(merge[i]);
   }
 
   return arr;
 }
 
-const getNftItem = function(merge, arr, idx){
-  //for (let i = 0; i < viewCnt; i++) {
-    //console.log("random : " + Math.floor(Math.random() * merge.length));
-    arr.push(merge[idx]);
-  //}
-
+const getNftItem = (merge, arr, idx) => {
+  arr = merge.filter(x => x.idx === parseInt(idx))[0];
   return arr;
+}
+
+const getNftGroupItem = (merge, arr, gruop) => {
+  return merge.filter(x => x.group === gruop);
 }
 
 
 const DemoStateMerge = {
-  //nftRepresentatives: JSON.stringify(dataTempReturnArray),
   nftRecordPageCount : 12,
+  nftPageStart : 0,
+  nftPageEnd : 12,
   nftPage(pg){
+    //random
     let dataTempPage = [];
     let mergeData = createData();
-    this.nftRecordPageCount = this.nftRecordPageCount * pg
-    return JSON.stringify(getNftData(mergeData, dataTempPage, this.nftRecordPageCount)); 
+    //console.log(pg);
+    
+    if(pg > 1){
+      this.nftPageStart = this.nftPageEnd;
+      this.nftPageEnd = this.nftRecordPageCount * pg
+    }else{
+      this.nftPageStart = 0
+      this.nftPageEnd = 12
+    }
+    return JSON.stringify(getNftPageData(mergeData, dataTempPage, this.nftPageStart, this.nftPageEnd)); 
   },
   nftRandom(viewCnt){
     let dataTempPage = [];
     let mergeData = arrayShuffle(createData());
     return JSON.stringify(getNftRanData(mergeData, dataTempPage, viewCnt)); 
+  },
+  nftGroupItem(group){
+    let dataTempPage = [];
+    let mergeData = createData();
+    return JSON.stringify(getNftGroupItem(mergeData, dataTempPage, group)); 
   },
   nftItem(idx){
     let dataTempPage = [];

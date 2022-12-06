@@ -46,7 +46,7 @@ const MainPage = () => {
                 to='/collections'
                 className='w-36 rounded-full bg-white py-3 px-8 text-center font-semibold text-accent shadow-white-volume transition-all
 								hover:bg-accent-dark hover:text-white hover:shadow-accent-volume'>
-                Explore
+                Item
               </Link>
             </div>
           </div>
