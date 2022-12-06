@@ -106,7 +106,7 @@ const GridNFT = ({ id, url, name, price, quantity }) => {
           </div>
         </div>
         <div className='mt-2 text-sm'>
-          <span className='mr-1 text-jacarta-700 dark:text-jacarta-200'>{price}</span>
+          <span className='mr-1 text-jacarta-700 dark:text-jacarta-200'>{price} TOM</span>
           {/*<span className='text-jacarta-500 dark:text-jacarta-300'>{quantity}</span>*/}
         </div>
 

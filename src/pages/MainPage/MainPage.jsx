@@ -7,13 +7,14 @@ import { Partners } from '../../components/Partners';
 import { FeaturedCollection } from '../../components/FeaturedCollection/FeaturedCollection';
 import { BgSwiper } from '../../components/BgSwiper';
 import { Link } from 'react-router-dom';
-import DemoState from "../../stores/DemoState";
+//import DemoState from "../../stores/DemoState";
+import DemoStateMerge from "../../stores/DemoStateMerge";
 import {proxy, useSnapshot} from "valtio";
 import useIndexQuery from "../../hooks/query/useIndexQuery";
 
 const MainPage = () => {
-  const state = proxy(DemoState);
-  const { indexData: indexData } = useIndexQuery();
+  //const state = proxy(DemoState);
+  //const { indexData: indexData } = useIndexQuery();
 
   //console.log(`indexData = ${JSON.stringify(indexData)}`)
 
@@ -51,15 +52,20 @@ const MainPage = () => {
           </div>
 
         <BgSwiper
-          data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}/*state.nftRepresentatives}*/
+          data={(JSON.parse(DemoStateMerge.nftRandom(10)))}
+          /*data={(indexData && indexData.nftRepresentatives) ? indexData.nftRepresentatives : []}*//*state.nftRepresentatives}*/
           />
         </div>
         </section>
       {/*<TopCreatorMain
         data={(indexData && indexData.nftTopCreators) ? indexData.nftTopCreators : []}/>
   <CreateAndSell />*/}
-      <FeaturedCollection
+      {/*<FeaturedCollection
         data={(indexData && indexData.nftFeaturedCollections) ? indexData.nftFeaturedCollections : []}/>
+<Partners />*/}
+      <FeaturedCollection
+          data={(JSON.parse(DemoStateMerge.nftRandom(10)))}
+          />
       <Partners />
     </main>
   );

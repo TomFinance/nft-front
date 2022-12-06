@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import conment from '../../img/conment.svg';
 
-const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
+const SwipeElement = ({ idx,url, alt, title, price, likes, countComment, currentBid }) => {
+  const itemPath = `/item/${idx}`;
   return (
     <div>
       <article>
@@ -10,7 +11,7 @@ const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
           className='block rounded-2.5xl border border-jacarta-100 bg-white p-[1.1875rem] transition-shadow 
 				hover:shadow-lg dark:border-jacarta-700 dark:bg-jacarta-700'>
           <figure>
-            <Link to='/item'>
+            <Link to={itemPath}>
               <img
                 src={url}
                 alt={alt}
@@ -30,31 +31,12 @@ const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
             <span
               className='flex items-center whitespace-nowrap rounded-md border border-jacarta-100 py-1 px-2 
 					dark:border-jacarta-600'>
-              <span data-tippy-content='ETH'>
-                <svg
-                  version='1.1'
-                  xmlns='http://www.w3.org/2000/svg'
-                  x='0'
-                  y='0'
-                  viewBox='0 0 1920 1920'
-                  // xml:space='preserve'
-                  className='h-4 w-4'>
-                  <path fill='#8A92B2' d='M959.8 80.7L420.1 976.3 959.8 731z' />
-                  <path
-                    fill='#62688F'
-                    d='M959.8 731L420.1 976.3l539.7 319.1zm539.8 245.3L959.8 80.7V731z'
-                  />
-                  <path fill='#454A75' d='M959.8 1295.4l539.8-319.1L959.8 731z' />
-                  <path fill='#8A92B2' d='M420.1 1078.7l539.7 760.6v-441.7z' />
-                  <path fill='#62688F' d='M959.8 1397.6v441.7l540.1-760.6z' />
-                </svg>
-              </span>
-              <span className='text-sm font-medium tracking-tight text-green'>7 ETH</span>
+              <span className='text-sm font-medium tracking-tight text-green'>{price} TOM</span>
             </span>
           </div>
           <div className='mt-2 text-sm'>
-            <span className='dark:text-jacarta-300'>Current Bid</span>
-            <span className='text-jacarta-700 dark:text-jacarta-100'>{currentBid}</span>
+            <span className='dark:text-jacarta-300'>{currentBid}</span>
+            <span className='text-jacarta-700 dark:text-jacarta-100'></span>
           </div>
 
           <div className='mt-8 flex items-center justify-between'>
@@ -63,7 +45,7 @@ const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
               className='font-display text-sm font-semibold text-accent'
               data-bs-toggle='modal'
               data-bs-target='#placeBidModal'>
-              Place bid
+              Buy now
             </button>
             <div className='flex items-center space-x-1'>
               <span
@@ -86,7 +68,7 @@ const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
               <span className='text-sm dark:text-jacarta-200'>{likes}</span>
             </div>
           </div>
-          <div className='mt-2 flex items-center justify-between'>
+          {/*<div className='mt-2 flex items-center justify-between'>
             <button
               className='font-display text-sm font-semibold text-green'
               data-bs-toggle='modal'
@@ -99,7 +81,7 @@ const SwipeElement = ({ url, alt, title, likes, countComment, currentBid }) => {
                 {countComment}
               </span>
             </Link>
-          </div>
+  </div>*/}
         </div>
       </article>
     </div>

@@ -8,6 +8,7 @@ import { Left } from './Left';
 import { Right } from './Right';
 import arrayShuffle from 'array-shuffle';
 
+
 /*
 import item_12_lg from '../../img/products/item_12_lg.jpg';
 import item_13_lg from '../../img/products/item_13_lg.gif';
@@ -39,7 +40,8 @@ const data = [
 ];*/
 
 const BgSwiper = ({data}) => {
-  data = arrayShuffle(data);
+
+  //data = arrayShuffle(data);
   
   return (
         <div className='relative'>
@@ -53,8 +55,9 @@ const BgSwiper = ({data}) => {
           >
             {data.map((card) => {
               return (
-                <SwiperSlide key={card.title}>
+                <SwiperSlide key={card.idx}>
                   <SlideElement
+                    idx={card.idx}
                     image={card.image}
                     avatar={card.avatar}
                     title={card.title}

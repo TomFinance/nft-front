@@ -29,14 +29,16 @@ const SmSwiper = ({ data }) => {
         >
           {data.map((grid) => {
             return (
-              <SwiperSlide key={grid.url}>
+              <SwiperSlide key={grid.image}>
                 <SwipeElement
-                  url={grid.url}
-                  alt={grid.alt}
+                  idx={grid.idx}
+                  url={grid.image}
+                  alt={grid.title}
                   title={grid.title}
-                  likes={grid.likes}
-                  countComment={grid.countComment}
-                  currentBid={grid.currentBid}
+                  price={grid.price}
+                  likes="0"//{grid.likes}
+                  countComment="0"//{grid.countComment}
+                  currentBid={grid.name}//{grid.currentBid}
                 />
               </SwiperSlide>
             );

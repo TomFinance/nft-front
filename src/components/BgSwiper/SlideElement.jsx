@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SlideElement = ({ image, avatar, title, name }) => {
+const SlideElement = ({ idx, image, avatar, title, name }) => {
+  const itemPath = `/item/${idx}`;
   return (
     <div>
       <article>
         <div className='block overflow-hidden rounded-2.5xl bg-white shadow-md transition-shadow hover:shadow-lg dark:bg-jacarta-700'>
           <figure className='relative'>
-            <Link to='/item'>
+            <Link to={itemPath}>
               <img
                 src={image}
                 alt='item 1'

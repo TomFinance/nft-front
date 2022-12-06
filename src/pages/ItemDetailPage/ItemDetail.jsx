@@ -24,6 +24,7 @@ import { ItemDropMenu } from '../../components/ItemDropMenu';
 import {proxy} from "valtio";
 import AppState from "../../AppState";
 import {GridNFT} from "../../components/GridNFT";
+import DemoStateMerge from "../../stores/DemoStateMerge";
 
 const ItemDetail = () => {
   const state = proxy(AppState);
@@ -33,11 +34,12 @@ const ItemDetail = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+  /*
   const nftDatas = state.nftListData.items.filter(x => x.id === parseInt(itemId));
   const nftData = nftDatas[0];
   console.log(JSON.stringify(nftData))
   const {collectionAsset} = nftData;
-
+*/
   // alert(collectionAsset.collectionAccountId)
 
 /*  (({id, collectionAsset}) =>
@@ -48,6 +50,9 @@ const ItemDetail = () => {
           price='From 8.49 ETH'
           quantity='2/8'
       />))*/
+
+  const collectionAsset = JSON.parse(DemoStateMerge.nftItem(itemId))[0];
+  console.log(collectionAsset)
 
   return (
     <main className='mt-24'>
@@ -68,7 +73,7 @@ const ItemDetail = () => {
           <div className='md:flex md:flex-wrap'>
             <figure className='mb-8 md:w-2/5 md:flex-shrink-0 md:flex-grow-0 md:basis-auto lg:w-1/2'>
               <img
-                src={`https://resource.skyhall.io/assets/${collectionAsset.imageUrl}`}
+                src={collectionAsset.image}
                 alt='item'
                 className='cursor-pointer rounded-2.5xl'
                 data-bs-toggle='modal'
@@ -78,7 +83,7 @@ const ItemDetail = () => {
             <div className='md:w-3/5 md:basis-auto md:pl-8 lg:w-1/2 lg:pl-[3.75rem]'>
               <div className='mb-3 flex'>
                 <h1 className='mb-0 font-display text-4xl font-semibold text-jacarta-700 dark:text-white'>
-                  {collectionAsset.name}
+                  {collectionAsset.title}
                 </h1>
                 <div className='ml-auto flex space-x-2'>
                   <div
@@ -158,15 +163,15 @@ const ItemDetail = () => {
                   </figure>
                   <div className='flex flex-col justify-center'>
                     <span className='block text-sm text-jacarta-400 dark:text-white'>
-                      Creator <strong>x% royalties</strong>
+                      Creator <strong>{collectionAsset.name}</strong>
                     </span>
-                    <Link to='user.html' className='block text-accent'>
+                    {/*<Link to='user.html' className='block text-accent'>
                       <span className='text-sm font-bold'>@-</span>
-                    </Link>
+      </Link>*/}
                   </div>
                 </div>
                 <div className='mb-4 flex'>
-                  <figure className='mr-4 shrink-0'>
+                  {/*<figure className='mr-4 shrink-0'>
                     <a href='user.html' className='relative block'>
                       <img src={avatar_1} alt='avatar 1' className='rounded-2lg' loading='lazy' />
                       <div
@@ -184,15 +189,15 @@ const ItemDetail = () => {
                         </svg>
                       </div>
                     </a>
-                  </figure>
-                  <div className='flex flex-col justify-center'>
+      </figure>*/}
+                  {/*<div className='flex flex-col justify-center'>
                     <span className='block text-sm text-jacarta-400 dark:text-white'>
                       Owned by
                     </span>
                     <a href='user.html' className='block text-accent'>
                       <span className='text-sm font-bold'>{nftData.sellerAccount.name}</span>
                     </a>
-                  </div>
+      </div>*/}
                 </div>
               </div>
               <div className='rounded-2lg border border-jacarta-100 bg-white p-8 dark:border-jacarta-600 dark:bg-jacarta-700'>
@@ -208,7 +213,7 @@ const ItemDetail = () => {
                             <img src={TOM} alt='TOM' className='mr-2 h-10 w-10 rounded-full' />
                           </span>
                           <span className='text-4xl font-medium leading-tight tracking-tight text-green'>
-                            {"1"} TOM
+                            {collectionAsset.price} TOM
                           </span>
                           <span className='ml-2 text-lg text-jacarta-400 dark:text-jacarta-300'>
                             {/*($200.21)*/}

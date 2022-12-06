@@ -29,6 +29,7 @@ import { UserFilters } from "../../components/UserFilters";
 import { Activity } from "../../components/Activity";
 //import useMarketSalesListQuery from "../../hooks/query/useMarketSalesListQuery";
 import AppState from "../../AppState";
+import DemoStateMerge from "../../stores/DemoStateMerge";
 
 function usePosts() {
   return useQuery(["posts"], async () => {
@@ -40,12 +41,24 @@ function usePosts() {
 }
 
 const NFTListPage = () => {
-  const state = proxy(AppState);
+  //const state = proxy(AppState);
   // const { indexData: indexData } = useMarketSalesListQuery();
   // console.log(`indexData = ${JSON.stringify(indexData)}`)
-  const { status, data, error, isFetching } = usePosts();
-  state.nftListData = data;
+  //const { status, data, error, isFetching } = usePosts();
+  //state.nftListData = data;
   //console.log('aaa= ' + JSON.stringify(data));
+
+  
+  //const state = proxy(DemoStateMerge);
+  //state.nftListData = JSON.parse(state.nftRepresentatives);
+
+  /*{
+    JSON.parse(state.nftRepresentatives).map((card) => (
+      console.log(card)
+    ))
+  }*/
+  
+  //data = arrayShuffle(data);
 
   return (
     <main>
@@ -57,7 +70,7 @@ const NFTListPage = () => {
         <div className="container">
           {
             <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
-              {status === "loading" || status === "error"
+              {/*status === "loading" || status === "error"
                 ? "Loading..."
                 : state.nftListData.items.map(({ id, collectionAsset }) => (
                     <GridNFT
@@ -66,9 +79,27 @@ const NFTListPage = () => {
                       name={collectionAsset.description}
                       price="0.1 ETH"
                     />
-                  ))}
+                ))*/}
+              {
+                 JSON.parse(DemoStateMerge.nftPage(1)).map((card) => (
+                  <GridNFT
+                    id={card.idx}
+                    url={card.image}
+                    name={card.title}
+                    price={card.price}
+                  />
+                ))
+              }
             </div>
           }
+          
+          <div class="mt-10 text-center">
+            <a
+              href="blog.html"
+              class="bg-accent shadow-accent-volume hover:bg-accent-dark inline-block rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
+              >Load More</a
+            >
+          </div>
         </div>
       </section>
     </main>
