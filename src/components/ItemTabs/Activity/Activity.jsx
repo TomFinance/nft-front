@@ -114,7 +114,7 @@ const Activity = () => {
           </div>
         </div>
         <div className='flex' role='row'>
-          <div
+          {/*<div
             className='flex w-[17%] items-center border-t border-jacarta-100 py-4 px-4 dark:border-jacarta-600'
             role='cell'>
             <svg
@@ -332,7 +332,7 @@ const Activity = () => {
                 />
               </svg>
             </Link>
-          </div>
+  </div>*/}
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
 import React from 'react';
 import avatar_2 from '../../img/avatars/avatar_2.jpg';
 import { Link } from 'react-router-dom';
+import DemoStateMerge from "../../stores/DemoStateMerge";
 
-const ModalUserBuy = () => {
+const ModalUserBuy = ({itemId}) => {
+  const collectionAsset = JSON.parse(DemoStateMerge.nftItem(itemId));
+
   return (
     <div className='modal-body p-6'>
       <div className='mb-2 flex items-center justify-between'>
@@ -15,17 +18,17 @@ const ModalUserBuy = () => {
       </div>
       <div className='relative flex items-center border-t border-b border-jacarta-100 py-4 dark:border-jacarta-600'>
         <figure className='mr-5 self-start'>
-          <img src={avatar_2} alt='avatar' className='rounded-2lg' />
+          <img src={collectionAsset.avatar} alt='avatar' className='rounded-2lg' />
         </figure>
         <div>
-          <Link to='/collection' className='text-sm text-accent'>
-            Elon Musk #709
+          <Link to='#' className='text-sm text-accent'>
+          {collectionAsset.name}
           </Link>
           <h3 className='mb-1 font-display text-base font-semibold text-jacarta-700 dark:text-white'>
-            Lazyone Panda
+          {collectionAsset.title}
           </h3>
           <div className='flex flex-wrap items-center'>
-            <span className='mr-1 block text-sm text-jacarta-500 dark:text-jacarta-300'>
+            {/*<span className='mr-1 block text-sm text-jacarta-500 dark:text-jacarta-300'>
               Creator Earnings: 5%
             </span>
             <span>
@@ -42,11 +45,12 @@ const ModalUserBuy = () => {
                 />
               </svg>
             </span>
+            */}
           </div>
         </div>
         <div className='ml-auto'>
           <span className='mb-1 flex items-center whitespace-nowrap'>
-            <span>
+            {/*<span>
               <svg
                 version='1.1'
                 xmlns='http://www.w3.org/2000/svg'
@@ -63,19 +67,19 @@ const ModalUserBuy = () => {
                 <path fill='#8A92B2' d='M420.1 1078.7l539.7 760.6v-441.7z'></path>
                 <path fill='#62688F' d='M959.8 1397.6v441.7l540.1-760.6z'></path>
               </svg>
-            </span>
+          </span>*/}
             <span className='text-sm font-medium tracking-tight dark:text-jacarta-100'>
-              1.55 ETH
+              {collectionAsset.price} TOM
             </span>
           </span>
-          <div className='text-right text-sm dark:text-jacarta-300'>$130.82</div>
+          <div className='text-right text-sm dark:text-jacarta-300'>130.82</div>
         </div>
       </div>
       <div className='mb-2 flex items-center justify-between border-b border-jacarta-100 py-2.5 dark:border-jacarta-600'>
         <span className='font-display font-semibold text-jacarta-700 dark:text-white'>Total</span>
         <div className='ml-auto'>
           <span className='flex items-center whitespace-nowrap'>
-            <span>
+            {/*<span>
               <svg
                 version='1.1'
                 xmlns='http://www.w3.org/2000/svg'
@@ -92,10 +96,10 @@ const ModalUserBuy = () => {
                 <path fill='#8A92B2' d='M420.1 1078.7l539.7 760.6v-441.7z'></path>
                 <path fill='#62688F' d='M959.8 1397.6v441.7l540.1-760.6z'></path>
               </svg>
-            </span>
-            <span className='font-medium tracking-tight text-green'>1.55 ETH</span>
+        </span>*/}
+            <span className='font-medium tracking-tight text-green'>{collectionAsset.price} TOM</span>
           </span>
-          <div className='text-right dark:text-jacarta-300'>$130.82</div>
+          <div className='text-right dark:text-jacarta-300'>130.82</div>
         </div>
       </div>
       <div className='mt-4 flex items-center space-x-2'>
@@ -105,8 +109,8 @@ const ModalUserBuy = () => {
 					checked:bg-accent focus:ring-accent/20 focus:ring-offset-0 dark:border-jacarta-500 dark:bg-jacarta-600'
         />
         <label className='text-sm dark:text-jacarta-200'>
-          By checking this box, I agree to Xhibiter's{' '}
-          <Link to='#' className='text-accent'>
+          By checking this box, I agree to TOM {' '}
+          <Link to='/Terms_and_conditions' className='text-accent'>
             Terms of Service
           </Link>
         </label>

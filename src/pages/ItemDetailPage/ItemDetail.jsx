@@ -185,7 +185,7 @@ const ItemDetail = () => {
               <div className='mb-8 flex flex-wrap'>
                 <div className='mr-8 mb-4 flex'>
                   <figure className='mr-4 shrink-0'>
-                    <Link to='/user' className='relative block'>
+                    <Link to='#' className='relative block'>
                       <img src={collectionAsset.avatar} alt='avatar 7' className='rounded-2lg' loading='lazy' />
                       <div
                         className='absolute -right-3 top-[60%] flex h-6 w-6 items-center justify-center rounded-full border-2 

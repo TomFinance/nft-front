@@ -105,7 +105,7 @@ const NFTListPage = () => {
                     url={card.image}
                     name={card.title}
                     price={card.price}
-                    quantity = "0"
+                    quantity = ""
                     likes={card.likes}
                   />
                 ))
