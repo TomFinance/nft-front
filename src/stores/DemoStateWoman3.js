@@ -5,7 +5,7 @@ const dataTempMap = new Object();
 
 for (let i = 1; i<=150; i++){
   let dataTempMap = {};
-  dataTempMap.image = require('../img/item/150_Woman_NFTs/' + i + '.png');
+  dataTempMap.image = require('../img/item/150_Woman_NFTs/' + i + '.jpg');
   dataTempMap.avatar = require('../img/avatars/avatar_3.jpg');
   dataTempMap.title = 'KaKuMa #' + ('0000' + i).slice(-4);
   dataTempMap.name = 'Sulla'
