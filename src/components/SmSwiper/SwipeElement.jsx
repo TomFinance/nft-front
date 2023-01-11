@@ -60,7 +60,7 @@ const SwipeElement = ({ idx, url, alt, title, price, likes, countComment, curren
             </Link>
           </figure>
           <div className='mt-4 flex items-center justify-between'>
-            <Link to='item.html'>
+            <Link to={itemPath}>
               <span className='font-display text-base text-jacarta-700 hover:text-accent dark:text-white'>
                 {title}
               </span>
@@ -77,13 +77,15 @@ const SwipeElement = ({ idx, url, alt, title, price, likes, countComment, curren
           </div>
 
           <div className='mt-8 flex items-center justify-between'>
-            <button
-              type='button'
-              className='font-display text-sm font-semibold text-accent'
-              data-bs-toggle='modal'
-              data-bs-target='#placeBidModal'>
-              Buy now
-            </button>
+            <Link to={itemPath}>
+              <button
+                type='button'
+                className='font-display text-sm font-semibold text-accent'
+                data-bs-toggle='modal'
+                data-bs-target='#placeBidModal'>
+                Buy now
+              </button>
+            </Link>
             <div className='flex items-center space-x-1' onClick={() => increaseLikes(idx)}>
               <span
                 className='js-likes relative cursor-pointer before:absolute before:h-4 before:w-4 before:bg-cover 

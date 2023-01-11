@@ -16,5 +16,5 @@ root.render(
         <App />
       </BrowserRouter>
     </MetaMaskProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

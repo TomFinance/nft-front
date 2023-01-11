@@ -54,7 +54,7 @@ const GridNFT = ({ id, url, name, price, quantity, likes }) => {
           setModalIsOpen={setModalIsOpen}
           title='Complete checkout'
           btnTitle='Confirm Checkout'
-          childrenBody={<ModalUserBuy />}
+          childrenBody={<ModalUserBuy itemId={id}/>}
           styledWrapper='modal-dialog max-w-2xl'
         />
       )}

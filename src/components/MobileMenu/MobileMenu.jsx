@@ -81,10 +81,10 @@ const MobileMenu = ({ setMobileMenuIsOpen }) => {
               className='flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 
 							hover:text-accent focus:text-accent dark:text-white dark:hover:text-accent 
 							dark:focus:text-accent lg:px-5'>
-              Explore
+              Item
             </Link>
           </li>
-          <li className='group'>
+          {/*<li className='group'>
             <Link
               onClick={() => setMobileMenuIsOpen(false)}
               to='/activity'
@@ -103,7 +103,7 @@ const MobileMenu = ({ setMobileMenuIsOpen }) => {
 							dark:focus:text-accent lg:px-5'>
               Rankings
             </Link>
-          </li>
+  </li>*/}
           <li className='group'>
             <Link
               onClick={() => setMobileMenuIsOpen(false)}

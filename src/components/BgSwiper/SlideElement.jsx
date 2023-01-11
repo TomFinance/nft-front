@@ -22,16 +22,16 @@ const SlideElement = ({ idx, image, avatar, title, name }) => {
           </figure>
           <div className='p-6'>
             <div className='flex'>
-              <Link to='user.html' className='shrink-0'>
+              <Link to={itemPath} className='shrink-0'>
                 <img src={avatar} alt='avatar' className='mr-4 h-10 w-10 rounded-full' />
               </Link>
               <div>
-                <Link to='/item' className='block'>
+                <Link to={itemPath} className='block'>
                   <span className='font-display text-lg leading-none text-jacarta-700 hover:text-accent dark:text-white'>
                     {title}
                   </span>
                 </Link>
-                <Link to='#' className='text-2xs text-accent'>
+                <Link to={itemPath} className='text-2xs text-accent'>
                   {name}
                 </Link>
               </div>
